@@ -5,7 +5,7 @@
         "slim/slim": "2.*",
         "slim/extras": "2.*",
         "illuminate/database": "*",
-        "davedevelopment/phpmig": "*",
+        "davedevelopment/phpmig": ">=1.1.x-dev",
         "pimple/pimple": "1.*"
     },
     "autoload": {
