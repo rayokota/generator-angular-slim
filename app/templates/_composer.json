@@ -1,0 +1,19 @@
+{
+    "name": "<%= baseName %>",    
+    "require": {
+        "php": ">=5.4.0",
+        "slim/slim": "2.*",
+        "slim/extras": "2.*",
+        "illuminate/database": "*",
+        "davedevelopment/phpmig": "*",
+        "pimple/pimple": "1.*"
+    },
+    "autoload": {
+        "classmap": [
+            "models"
+        ]
+    },
+    "config": {
+        "bin-dir": "bin/"
+    }
+}
