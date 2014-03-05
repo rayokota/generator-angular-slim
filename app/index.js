@@ -12,6 +12,7 @@ var AngularSlimGenerator = module.exports = function AngularSlimGenerator(args, 
 
   this.on('end', function () {
     this.installDependencies({ skipInstall: options['skip-install'] });
+    return this.spawnCommand('sqlite3', ['-line', '/tmp/my.db', 'select 1']);
   });
 
   this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
