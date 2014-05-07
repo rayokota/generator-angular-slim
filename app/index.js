@@ -1,11 +1,11 @@
 'use strict';
 var util = require('util'),
-path = require('path'),
-yeoman = require('yeoman-generator'),
-_ = require('lodash'),
-_s = require('underscore.string'),
-pluralize = require('pluralize'),
-asciify = require('asciify');
+    path = require('path'),
+    yeoman = require('yeoman-generator'),
+    _ = require('lodash'),
+    _s = require('underscore.string'),
+    pluralize = require('pluralize'),
+    asciify = require('asciify');
 
 var AngularSlimGenerator = module.exports = function AngularSlimGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
@@ -41,7 +41,7 @@ AngularSlimGenerator.prototype.askFor = function askFor() {
 
   console.log('\n' +
     '+-+-+-+-+-+-+-+ +-+-+-+-+ +-+-+-+-+-+-+-+-+-+\n' +
-    '+a|n|g|u|l|a|r| |s|l|i|m| |g|e|n|e|r|a|t|o|r|\n' +
+    '|a|n|g|u|l|a|r| |s|l|i|m| |g|e|n|e|r|a|t|o|r|\n' +
     '+-+-+-+-+-+-+-+ +-+-+-+-+ +-+-+-+-+-+-+-+-+-+\n' +
     '\n');
 

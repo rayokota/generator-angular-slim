@@ -1,10 +1,10 @@
 'use strict';
 var util = require('util'),
-yeoman = require('yeoman-generator'),
-fs = require('fs'),
-_ = require('lodash'),
-_s = require('underscore.string'),
-pluralize = require('pluralize');
+    yeoman = require('yeoman-generator'),
+    fs = require('fs'),
+    _ = require('lodash'),
+    _s = require('underscore.string'),
+    pluralize = require('pluralize');
 
 var EntityGenerator = module.exports = function EntityGenerator(args, options, config) {
   // By calling `NamedBase` here, we get the argument to the subgenerator call
