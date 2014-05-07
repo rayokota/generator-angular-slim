@@ -7,9 +7,15 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 $capsule = new Capsule;
 
 $capsule->addConnection([
-    'driver'    => 'sqlite',
-    'database'  => '/tmp/my.db',
+    'driver'    => '<%= dataBaseType %>',
+    'host'      => '<%= hostName %>',
+    'database'  => '<%= databaseName %>',
+    'username'  => '<%= userName %>',
+    'password'  => '<%= password %>',
+    'charset'   => 'utf8',
+    'collation' => 'utf8_unicode_ci',
     'prefix'    => '',
+
 ]);
 
 // Set the event dispatcher used by Eloquent models... (optional)
