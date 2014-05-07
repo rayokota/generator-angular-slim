@@ -6,7 +6,7 @@ Slim is a PHP-based micro-framework.  For AngularJS integration with other micro
 
 ## Installation
 
-Install [Git](http://git-scm.com), [node.js](http://nodejs.org), and [PHP 5.4](http://www.php.net/).  The development mode also requires [SQLite](http://www.sqlite.org).
+Install [Git](http://git-scm.com), [node.js](http://nodejs.org), and [PHP 5.4](http://www.php.net/).  The development mode also requires [SQLite](http://www.sqlite.org) or [MySql](http://www.mysql.com/).
 
 Install Yeoman:
 
@@ -28,7 +28,11 @@ Install [Composer](https://getcomposer.org/):
 
 	curl -s http://getcomposer.org/installer | php
 	
-Install dependencies:
+If you chose to update Composer automatically :
+
+	composer update
+
+will run automatically, if not Install dependencies
 
 	php composer.phar update
 
@@ -57,7 +61,11 @@ You will be asked to specify attributes for the entity, where each attribute has
 
 Files that are regenerated will appear as conflicts.  Allow the generator to overwrite these files as long as no custom changes have been made.
 
-Install dependencies:
+If you chose to update Composer automatically :
+
+	composer update
+	
+will run automatically, if not Install dependencies
 
 	php composer.phar update
 
