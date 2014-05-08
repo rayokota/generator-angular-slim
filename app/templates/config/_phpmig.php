@@ -7,8 +7,13 @@ use \Phpmig\Adapter,
 $container = new Pimple();
 
 $container['config'] = array(
-    'driver'    => 'sqlite',
-    'database'  => '/tmp/my.db',
+    'driver'    => '<%= databaseType %>',
+    'host'      => '<%= hostName %>',
+    'database'  => '<%= databaseName %>',
+    'username'  => '<%= userName %>',
+    'password'  => '<%= password %>',
+    'charset'   => 'utf8',
+    'collation' => 'utf8_unicode_ci',
     'prefix'    => '',
 );
 

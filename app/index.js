@@ -12,7 +12,14 @@ var AngularSlimGenerator = module.exports = function AngularSlimGenerator(args, 
 
   this.on('end', function () {
     this.installDependencies({ skipInstall: options['skip-install'] });
-    return this.spawnCommand('sqlite3', ['-line', '/tmp/my.db', 'select 1']);
+
+    if (this.generatorConfig.databaseType === 'sqlite') {
+      this.spawnCommand('sqlite3', ['-line', this.generatorConfig.databaseName, 'select 1']);
+    }
+
+    if (this.generatorConfig.composer) {
+      this.spawnCommand('composer', ['update']);
+    }
   });
 
   this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
@@ -35,10 +42,57 @@ AngularSlimGenerator.prototype.askFor = function askFor() {
     name: 'baseName',
     message: 'What is the name of your application?',
     default: 'myapp'
+  },
+  {
+    type: 'list',
+    name: 'databaseType',
+    message: 'Which database would you like to use?',
+    choices: ['SQLite', 'MySQL', 'PostgreSQL'],
+    default: 'SQLite'
+  },
+  {
+    type: 'input',
+    name: 'hostName',
+    message: 'What is your host name?',
+    default: 'localhost'
+  },
+  {
+    type: 'input',
+    name: 'databaseName',
+    message: 'What is your database name?',
+    default: 'my_db'
+  },
+  {
+    type: 'input',
+    name: 'userName',
+    message: 'What is your database user name?',
+    default: ''
+  },
+  {
+    type: 'input',
+    name: 'password',
+    message: 'What is your database password?',
+    default: ''
+  },
+  {
+    type: 'confirm',
+    name: 'composer',
+    message: 'Is PHP composer installed globally (so that "composer update" can be run automatically)?',
+    default: false
   }];
 
   this.prompt(prompts, function (props) {
     this.baseName = props.baseName;
+    this.databaseType = props.databaseType == 'PostgreSQL' ? 'pgsql' : props.databaseType.toLowerCase();
+    this.hostName = props.hostName;
+    if (props.databaseType == 'SQLite' && props.databaseName.indexOf('/') != 0) {
+      this.databaseName = '/tmp/' + props.databaseName;
+    } else {
+      this.databaseName = props.databaseName;
+    }
+    this.userName = props.userName;
+    this.password = props.password;
+    this.composer = props.composer;
 
     cb();
   }.bind(this));
@@ -47,11 +101,15 @@ AngularSlimGenerator.prototype.askFor = function askFor() {
 AngularSlimGenerator.prototype.app = function app() {
 
   this.entities = [];
-  this.resources = [];
   this.generatorConfig = {
     "baseName": this.baseName,
+    "databaseType": this.databaseType,
+    "hostName": this.hostName,
+    "databaseName": this.databaseName,
+    "userName": this.userName,
+    "password": this.password,
     "entities": this.entities,
-    "resources": this.resources
+    "composer": this.composer,
   };
   this.generatorConfigStr = JSON.stringify(this.generatorConfig, null, '\t');
 
