@@ -11,24 +11,16 @@ var AngularSlimGenerator = module.exports = function AngularSlimGenerator(args, 
   yeoman.generators.Base.apply(this, arguments);
 
   this.on('end', function () {
+    this.installDependencies({ skipInstall: options['skip-install'] });
 
-    // if (this.generatorConfig.install){
-    //    this.spawnCommand('curl', [' -s  http://getcomposer.org/installer | php']);
-    // }
-
-    if (this.generatorConfig.dataBaseType==='sqlite') {
+    if (this.generatorConfig.databaseType === 'sqlite') {
       this.spawnCommand('sqlite3', ['-line', this.generatorConfig.databaseName, 'select 1']);
     }
 
-    if (this.generatorConfig.composer){
-      this.installDependencies({ skipInstall: options['skip-install'] });
-      return  this.spawnCommand('composer', ['update']);
+    if (this.generatorConfig.composer) {
+      this.spawnCommand('composer', ['update']);
     }
-    else{
-     return  this.installDependencies({ skipInstall: options['skip-install'] });
-   }
-
- });
+  });
 
   this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 };
@@ -53,57 +45,54 @@ AngularSlimGenerator.prototype.askFor = function askFor() {
   },
   {
     type: 'list',
-    name: 'dataBaseType',
-    message: 'What is the type of DataBase ?',
-    choices: ['sqlite', 'mysql'],
-    default: 'sqlite'
+    name: 'databaseType',
+    message: 'Which database would you like to use?',
+    choices: ['SQLite', 'MySQL', 'PostgreSQL'],
+    default: 'SQLite'
   },
   {
     type: 'input',
     name: 'hostName',
-    message: 'What is your Hostname?',
+    message: 'What is your host name?',
     default: 'localhost'
   },
   {
     type: 'input',
     name: 'databaseName',
-    message: 'What is your DataBase Name?',
-    default: 'my'
+    message: 'What is your database name?',
+    default: 'my_db'
   },
   {
     type: 'input',
     name: 'userName',
-    message: 'What is your Username?',
-    default: 'root'
+    message: 'What is your database user name?',
+    default: ''
   },
   {
     type: 'input',
     name: 'password',
-    message: 'What is your Password?',
+    message: 'What is your database password?',
     default: ''
   },
-  // {
-  //   type: 'confirm',
-  //   name: 'install',
-  //   message: 'Whant to install Composer automatically?',
-  //   default: false
-  // },
   {
     type: 'confirm',
     name: 'composer',
-    message: 'Whant to update Composer automatically?',
+    message: 'Is PHP composer installed globally (so that "composer update" can be run automatically)?',
     default: false
   }];
 
   this.prompt(prompts, function (props) {
     this.baseName = props.baseName;
-    this.dataBaseType = props.dataBaseType;
+    this.databaseType = props.databaseType == 'PostgreSQL' ? 'pgsql' : props.databaseType.toLowerCase();
     this.hostName = props.hostName;
-    this.databaseName = props.databaseName;
+    if (props.databaseType == 'SQLite' && props.databaseName.indexOf('/') != 0) {
+      this.databaseName = '/tmp/' + props.databaseName;
+    } else {
+      this.databaseName = props.databaseName;
+    }
     this.userName = props.userName;
     this.password = props.password;
     this.composer = props.composer;
-    // this.install = props.install;
 
     cb();
   }.bind(this));
@@ -112,18 +101,15 @@ AngularSlimGenerator.prototype.askFor = function askFor() {
 AngularSlimGenerator.prototype.app = function app() {
 
   this.entities = [];
-  this.resources = [];
   this.generatorConfig = {
     "baseName": this.baseName,
-    "dataBaseType": this.dataBaseType,
+    "databaseType": this.databaseType,
     "hostName": this.hostName,
     "databaseName": this.databaseName,
     "userName": this.userName,
     "password": this.password,
     "entities": this.entities,
-    "resources": this.resources,
     "composer": this.composer,
-    // "install": this.install
   };
   this.generatorConfigStr = JSON.stringify(this.generatorConfig, null, '\t');
 

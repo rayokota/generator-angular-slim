@@ -7,7 +7,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 $capsule = new Capsule;
 
 $capsule->addConnection([
-    'driver'    => '<%= dataBaseType %>',
+    'driver'    => '<%= databaseType %>',
     'host'      => '<%= hostName %>',
     'database'  => '<%= databaseName %>',
     'username'  => '<%= userName %>',
@@ -15,7 +15,6 @@ $capsule->addConnection([
     'charset'   => 'utf8',
     'collation' => 'utf8_unicode_ci',
     'prefix'    => '',
-
 ]);
 
 // Set the event dispatcher used by Eloquent models... (optional)

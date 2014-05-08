@@ -1,4 +1,4 @@
- <?php
+<?php
 
 use \Phpmig\Adapter,
     \Pimple,
@@ -7,8 +7,7 @@ use \Phpmig\Adapter,
 $container = new Pimple();
 
 $container['config'] = array(
-  
-    'driver'    => '<%= dataBaseType %>',
+    'driver'    => '<%= databaseType %>',
     'host'      => '<%= hostName %>',
     'database'  => '<%= databaseName %>',
     'username'  => '<%= userName %>',
@@ -16,7 +15,6 @@ $container['config'] = array(
     'charset'   => 'utf8',
     'collation' => 'utf8_unicode_ci',
     'prefix'    => '',
-
 );
 
 $container['schema'] = $container->share(function($container) {

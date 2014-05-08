@@ -14,16 +14,11 @@ var EntityGenerator = module.exports = function EntityGenerator(args, options, c
   console.log('You called the entity subgenerator with the argument ' + this.name + '.');
 
   this.on('end', function () {
-   if (this.composer){
     this.spawnCommand('bin/phpmig', ['migrate']);
-    return this.spawnCommand('composer', ['update']);
-  }
-  else{
-    return this.spawnCommand('bin/phpmig', ['migrate']);
-  }
-
-  
-});
+    if (this.composer) {
+      return this.spawnCommand('composer', ['update']);
+    }
+  });
 
   fs.readFile('generator.json', 'utf8', function (err, data) {
     if (err) {
@@ -161,7 +156,7 @@ EntityGenerator.prototype.askFor = function askFor() {
 EntityGenerator.prototype.files = function files() {
 
   this.baseName = this.generatorConfig.baseName;
-  this.dataBaseType = this.generatorConfig.dataBaseType;
+  this.databaseType = this.generatorConfig.databaseType;
   this.hostName = this.generatorConfig.hostName;
   this.databaseName = this.generatorConfig.databaseName;
   this.userName = this.generatorConfig.userName;

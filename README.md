@@ -6,7 +6,7 @@ Slim is a PHP-based micro-framework.  For AngularJS integration with other micro
 
 ## Installation
 
-Install [Git](http://git-scm.com), [node.js](http://nodejs.org), and [PHP 5.4](http://www.php.net/).  The development mode also requires [SQLite](http://www.sqlite.org) or [MySql](http://www.mysql.com/).
+Install [Git](http://git-scm.com), [node.js](http://nodejs.org), and [PHP 5.4](http://www.php.net/).  The development mode also requires either [SQLite](http://www.sqlite.org), [MySQL](http://www.mysql.com/), or [PostgreSQL](http://www.postgresql.org/).
 
 Install Yeoman:
 
@@ -26,15 +26,11 @@ In a new directory, generate the service:
 
 Install [Composer](https://getcomposer.org/):
 
-	curl -s http://getcomposer.org/installer | php
-	
-If you chose to update Composer automatically :
+    curl -s http://getcomposer.org/installer | php
 
-	composer update
+Install dependencies manually if composer was not pre-installed:
 
-will run automatically, if not Install dependencies
-
-	php composer.phar update
+    php composer.phar update
 
 Run the service:
 
@@ -61,13 +57,9 @@ You will be asked to specify attributes for the entity, where each attribute has
 
 Files that are regenerated will appear as conflicts.  Allow the generator to overwrite these files as long as no custom changes have been made.
 
-If you chose to update Composer automatically :
+Install dependencies manually if composer was not pre-installed:
 
-	composer update
-	
-will run automatically, if not Install dependencies
-
-	php composer.phar update
+    php composer.phar update
 
 Run the service:
 
@@ -75,8 +67,8 @@ Run the service:
     
 A client-side AngularJS application will now be available by running
 
-	grunt server
-	
+    grunt server
+
 The Grunt server will run at [http://localhost:9000](http://localhost:9000).  It will proxy REST requests to the Slim service running at [http://localhost:8080](http://localhost:8080).
 
 At this point you should be able to navigate to a page to manage your persistent entities.  
